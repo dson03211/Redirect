@@ -1,0 +1,14 @@
+app:
+  name: Redirect
+  type: static
+  spa: true  # IMPORTANT: Enable Single Page App routing
+
+build:
+  command: "echo 'Static site deployed'"
+  output: "."
+  
+headers:
+  - source: /index.html
+    headers:
+      - key: Cache-Control
+        value: "no-cache"
